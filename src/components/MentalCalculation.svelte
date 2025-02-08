@@ -34,8 +34,6 @@
   <Equation {equation} {response}/>
   <Keypad bind:response={response} {verification}/>
 </div>
-Response is : {response} !
-
 
 <style>
   .container{
