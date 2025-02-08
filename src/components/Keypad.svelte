@@ -69,6 +69,6 @@
     background-color: lightgrey;
   }
   .number{
-    height: 100px;
+    height: 65px;
   }
 </style>

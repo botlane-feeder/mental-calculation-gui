@@ -58,7 +58,7 @@
 <style>
   .container{
     max-width: 800px;
-    min-width: 400px;
+    min-width: 300px;
 
     background-color: #EFF3EA;
     /* border: transparent 10px solid; */
