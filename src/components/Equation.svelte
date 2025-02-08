@@ -4,7 +4,7 @@
 
 <div class="container">
   {equation} = 
-  {#if response > 0 }
+  {#if response != 0 }
   {response}
   {/if}
 </div>
