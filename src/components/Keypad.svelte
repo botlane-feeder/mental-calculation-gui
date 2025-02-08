@@ -41,8 +41,6 @@
     width: 98%;
     padding: 1%;
 
-    border: solid 2px grey;
-
     cursor: pointer;
   }
   .numbers{
