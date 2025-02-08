@@ -18,5 +18,7 @@
     font-size: 40px;
 
     border: solid 2px grey;
+
+    background-color: #D9DFC6;
   }
 </style>
