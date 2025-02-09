@@ -38,8 +38,8 @@
     flex-direction: column;
     gap: 20px;
     
-    width: 98%;
-    padding: 1%;
+    width: 92%;
+    padding: 4%;
 
     cursor: pointer;
   }
