@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { EquationType } from "$lib/types";
+  import type { EquationType,CoundownTriggers } from "$lib/types";
   
   import CountdownTime from "./CountdownTime.svelte";
   import Equation from "./Equation.svelte";
@@ -13,12 +13,10 @@
   let wrongAnimating:boolean=$state(false);
   let idEquation:number = $state( sortEquation( equationArray.length-1 ) );
 
-  let startCountdownTime:boolean=$state(false)
-  let countdownTimeEnd:boolean= $state(false);
+  let countdownTimeTriggers:CoundownTriggers=$state({start:false, pause:false, reset:false});
+  let countdownTimeEnd:boolean= $state(true);
 
-  let startCountdown:boolean= $state(false);
-  let pauseCountdown:boolean= $state(false);
-  let resetCountdown:boolean= $state(false);
+  let countdownBarTriggers:CoundownTriggers=$state({start:false, pause:false, reset:false});
   let countdownBarEnd:boolean= $state(false);
 
   let equation:string = $derived(equationArray[idEquation]["equation"]);
@@ -41,8 +39,8 @@
   function startNewEquation(){
     // Selectionne une nouvelle equation
     idEquation = sortEquation( equationArray.length-1 );
-    // Relance du chrono
-    startCountdown=true;
+    // Relance le chrono
+    countdownBarTriggers["start"]=true;
 
   }
 
@@ -58,33 +56,70 @@
       wrongAnimating = false;
     }, 1000);
   }
+  // Lancement initial du jeu
   $effect(()=>{
+    if(!countdownTimeEnd){
+      // Lancement des chronos
+      countdownTimeTriggers["start"]=true;
+      countdownBarTriggers["start"]=true;
+    }
+  });
+  // 
+  $effect(()=>{
+    
     if(!countdownTimeEnd && countdownBarEnd){
+      // Affichage rouge
+      wrongAnimation();
+      // Lance une nouvelle équation
       startNewEquation();
+    }else if( countdownTimeEnd ){
+      countdownBarTriggers["pause"]=true;
     }
   })
 </script>
 
 <div class="container">
-  {#if countdownTimeEnd}
-    <div>FIN, Score : </div>
-  {/if}
-  <CountdownTime bind:startTrigger={startCountdownTime} bind:end={countdownTimeEnd} duration={2}/>
-  <button onclick={()=>{startCountdownTime=true}}>Start</button>
+  <CountdownTime bind:triggers={countdownTimeTriggers} bind:end={countdownTimeEnd} duration={20}/>
+  <button onclick={()=>{countdownTimeTriggers["start"]=true}}>Start</button>
   {#key winAnimating || wrongAnimating}
-    <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
+  <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
   {/key}
-  <CountdownBar bind:startTrigger={startCountdown} bind:pauseTrigger={pauseCountdown} bind:resetTrigger={resetCountdown} duration={3000} bind:end={countdownBarEnd}/>
+  <CountdownBar bind:triggers={countdownBarTriggers} duration={3000} bind:end={countdownBarEnd}/>
   <Keypad bind:response={response} {verification}/>
+  
+  {#if countdownTimeEnd}
+  <div class="startMentalCalculation">
+    <button onclick={()=>{ countdownTimeEnd = false}}>Start to calculate ?</button>
+  </div>
+  <!-- <div>FIN, Score : </div> -->
+  {/if}
 </div>
 
 <style>
   .container{
+    position: relative;
     max-width: 800px;
     min-width: 300px;
 
     background-color: #EFF3EA;
     border: solid 2px grey;
+  }
+  .startMentalCalculation{
+    position: absolute;
+    top: 0px;
+    background-color: #bbb7b788;
+    width:100%;
+    height:100%;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .startMentalCalculation button{
+    font-size: 28px;
+    padding: 20px 10px;
   }
   
 </style>

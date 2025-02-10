@@ -1,34 +1,31 @@
 <script lang="ts">
+  import type { CoundownTriggers } from "$lib/types";
 
-  let {startTrigger=$bindable(), pauseTrigger=$bindable(), resetTrigger=$bindable(), duration, end=$bindable()}:
-  {startTrigger:boolean, pauseTrigger:boolean, resetTrigger:boolean, duration:number, end:boolean} = $props();
+  let {triggers=$bindable(), duration, end=$bindable()}:{triggers:CoundownTriggers, duration:number, end:boolean} = $props();
 
   let progress:number = $state(100);
   let intervalId:number=0;
 
-  function startCountdown() {
-    // S'il y a déjà un décompte reset et relance
-    // if (intervalId!=0){
-      resetCountdown();
-    // }
-    // Lance un interval qui va diminuer la progression
+  function start() {
+    // Si un interval était déjà en cours : évite les doublons
+    reset();
+    // Lance l'interval
     intervalId = setInterval(() => {
       if (progress > 0) {
         progress -= 1;
       } else {
-        clearInterval(intervalId);
-        intervalId = 0;
+        pause();
         end=true;
       }
     }, duration/100);
   }
 
-  function pauseCountdown() {
+  function pause() {
     clearInterval(intervalId);
     intervalId = 0;
   }
   
-  function resetCountdown() {
+  function reset() {
     progress = 100;
     end=false;
     clearInterval(intervalId);
@@ -37,21 +34,21 @@
 
   // Réagir aux changements des props
   $effect(()=>{
-    if (startTrigger) {
-      startCountdown();
-      startTrigger = false;
+    if (triggers["start"]) {
+      start();
+      triggers["start"] = false;
     }
   });
   $effect(()=>{
-    if (pauseTrigger) {
-      pauseCountdown();
-      pauseTrigger = false;
+    if (triggers["pause"]) {
+      pause();
+      triggers["pause"] = false;
     }
   });
   $effect(()=>{
-    if (resetTrigger) {
-      resetCountdown();
-      resetTrigger = false;
+    if (triggers["reset"]) {
+      reset();
+      triggers["reset"] = false;
     }
   });
 </script>

@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { CoundownTriggers } from "$lib/types";
 
-  let {startTrigger=$bindable(), end=$bindable(), duration}:{startTrigger:boolean, end:boolean, duration:number} = $props();
+  let {triggers=$bindable(), end=$bindable(), duration}:{triggers:CoundownTriggers, end:boolean, duration:number} = $props();
   let conf={format:"min"};
-  let pauseTrigger:boolean=false;
   let countdown:number = $state(duration*1000);
   let countdownString:string = $derived.by(()=>{
     let str="";
@@ -40,15 +40,15 @@
   }
 
   $effect(()=>{
-    if(startTrigger){
+    if(triggers["start"]){
       start();
-      startTrigger=false;
+      triggers["start"]=false;
     }
   });
   $effect(()=>{
-    if(pauseTrigger){
+    if(triggers["pause"]){
       pause();
-      pauseTrigger=false;
+      triggers["pause"]=false;
     }
   });
 </script>
@@ -59,6 +59,11 @@
 
 <style>
   @import url('https://fonts.cdnfonts.com/css/alarm-clock');
+  .container{
+    width:100%;
+    margin:0;
+    padding:0;
+  }
   .countdownString{
     font-family: 'alarm clock', sans-serif;
     font-size: 48px;
