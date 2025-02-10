@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2025-02-09
+
+### ADD
+
+- Ajout du décompte pour chronométrer l'équation
+
+### UPDATE
+
+- Changement du visuel pour la reussite ou l'erreur de l'équation
+- Mise à jour des espacements
+
 ## [0.2.0] - 2025-02-08
 
 ### ADD
@@ -13,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### UPDATE
 
-- Changement de couleur de fois de l'interface
+- Changement de couleur de fond de l'interface
 - Modification du design pour mobile
 
 
