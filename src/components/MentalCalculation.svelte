@@ -22,7 +22,7 @@
   let equation:string = $derived(equationArray[idEquation]["equation"]);
 
   function verification(){
-    if(countdownTimeTriggers["start"] && equationArray[idEquation]["result"] == response){
+    if(!countdownTimeEnd && equationArray[idEquation]["result"] == response){
       // Affichage vert
       winAnimation();
       // Lance une nouvelle équation
