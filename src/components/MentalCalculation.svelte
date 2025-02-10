@@ -22,8 +22,7 @@
   let equation:string = $derived(equationArray[idEquation]["equation"]);
 
   function verification(){
-    console.log("verification");
-    if(equationArray[idEquation]["result"] == response){
+    if(countdownTimeTriggers["start"] && equationArray[idEquation]["result"] == response){
       // Affichage vert
       winAnimation();
       // Lance une nouvelle équation
@@ -80,7 +79,6 @@
 
 <div class="container">
   <CountdownTime bind:triggers={countdownTimeTriggers} bind:end={countdownTimeEnd} duration={20}/>
-  <button onclick={()=>{countdownTimeTriggers["start"]=true}}>Start</button>
   {#key winAnimating || wrongAnimating}
   <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
   {/key}
