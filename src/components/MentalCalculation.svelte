@@ -8,6 +8,8 @@
 
   let { equationArray }:{ equationArray:EquationType[] } = $props();
 
+  let score = $state(0);
+
   let response:number = $state(0);
   let winAnimating:boolean=$state(false);
   let wrongAnimating:boolean=$state(false);
@@ -26,7 +28,8 @@
       // Affichage vert
       winAnimation();
       // Lance une nouvelle équation
-      startNewEquation()
+      startNewEquation();
+      score += 1;
     }else{
       // Affichage rouge
       wrongAnimation();
@@ -61,6 +64,7 @@
       // Lancement des chronos
       countdownTimeTriggers["start"]=true;
       countdownBarTriggers["start"]=true;
+      score=0;
     }
   });
   // 
@@ -88,6 +92,11 @@
   {#if countdownTimeEnd}
   <div class="startMentalCalculation">
     <button onclick={()=>{ countdownTimeEnd = false}}>Start to calculate ?</button>
+    <div class="score">
+      {#if score > 0}
+        <div>Votre score est de {score} !</div>
+      {/if}
+    </div>
   </div>
   <!-- <div>FIN, Score : </div> -->
   {/if}
@@ -113,7 +122,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+  }
+  .score{
+    width: 80%;
+    height:100px;
+  }
+  .score div{
+    width: 100%;
+    height:100%;
+    background-color: #fdffec;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+
   }
   .startMentalCalculation button{
     font-size: 28px;
