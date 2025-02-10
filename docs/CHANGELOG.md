@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ADD
 
 - Ajout du décompte pour chronométrer l'équation
+- Mise en place de 100 équations côté SvelteKit
 
 ### UPDATE
 
