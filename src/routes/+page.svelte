@@ -1,20 +1,22 @@
 <script lang="ts">
   import MentalCalculation from "../components/MentalCalculation.svelte";
+  import type { EquationType } from "$lib/types";
 
+
+  let { data }= $props();
+  let equationArray:EquationType[] = data["equationArray"];
 </script>
 
 <div class="container">
-  <MentalCalculation />
+  <MentalCalculation { equationArray }/>
 </div>
 
 
 <style>
   .container{
     width: 100%;
-    /* text-align:center; */
     display:flex;
     flex-direction: column;
-    /* justify-content:center; */
     align-items: center;
   }
 </style>

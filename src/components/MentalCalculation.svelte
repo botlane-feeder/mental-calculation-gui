@@ -1,16 +1,13 @@
 <script lang="ts">
+  import type { EquationType } from "$lib/types";
+  
   import Equation from "./Equation.svelte";
   import Countdown from "./Countdown.svelte";
   import Keypad from "./Keypad.svelte";
 
+  let { equationArray }:{ equationArray:EquationType[] } = $props();
+
   let response:number = $state(0);
-  let equationArray:{equation:string, response:number}[] = [
-    {"equation":"3 + 2", "response":5},
-    {"equation":"2 + 3", "response":5},
-    {"equation":"8 + 5", "response":13},
-    {"equation":"20 + 5", "response":25},
-    {"equation":"23 - 8", "response":15},
-  ];
   let winAnimating=$state(false);
   let wrongAnimating=$state(false);
   let idEquation:number = $state( sortEquation( equationArray.length-1 ) );
@@ -24,11 +21,11 @@
 
   function verification(){
     console.log("verification");
-    if(equationArray[idEquation]["response"] == response){
+    if(equationArray[idEquation]["result"] == response){
       // Affichage vert
       winAnimation();
       // Nouvelle équation
-      idEquation = sortEquation( equationArray.length );
+      idEquation = sortEquation( equationArray.length-1 );
       // Relance du chrono
       startCountdown=true;
     }else{
