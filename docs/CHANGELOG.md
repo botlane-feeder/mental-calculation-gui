@@ -10,17 +10,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ADD
 
 - Ajouter une page à propos, avec ce changelog
-- Ajouter un stockage des scores dans le localstorage
 
 ### UPDATE
 
+- Modification du calcul du score
 - TODO : Changer les boutons, de `<div>` en `<button>`
 
 ## [0.6.0] - 2025-02-24
 
+### ADD
+
+- Ajouter un stockage de la difficulté et des scores dans le localstorage
+- Ajout du stockage du score : WIP
+
 ### UPDATE
 
 - Modification du timer pour rendre disponible le bouton Rejouer
+- Modification du design de la croix de la modal
+
+### FIX
+
+- La réponse n'est pas `0` par défaut, mais `null`
 
 ## [0.5.0] - 2025-02-24
 

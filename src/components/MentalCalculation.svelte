@@ -7,8 +7,6 @@
   import CountdownBar from "./CountdownBar.svelte";
   import Keypad from "./Keypad.svelte";
 
-  import Modal from "./Modal.svelte";
-
   interface P {
     gameTrigger:{new:boolean, end:boolean},
     equationArray:EquationType[],
@@ -17,10 +15,6 @@
   };
 
   let { gameTrigger=$bindable(), equationArray, mentalCalculatioSettings, score=$bindable() }:P = $props();
-
-  // let score = $state(0);
-
-  let localProfile = $state();
 
   let response:number|null = $state(null);
   let winAnimating:boolean=$state(false);
@@ -41,7 +35,8 @@
       winAnimation();
       // Lance une nouvelle équation
       startNewEquation();
-      score += 1; //calculateScore();
+      // Calcule le score
+      calculateScore();
     }else{
       // Affichage rouge
       wrongAnimation();
@@ -93,7 +88,8 @@
   });
 
   function calculateScore(){
-    score = score;
+    score = score+1;
+    console.log(score);
   }
 
   // Animations visuelles
@@ -122,20 +118,6 @@
   {#if gameTrigger["end"]} <div class="blur"> </div> {/if}
 </div>
 
-<!-- <Modal onclick={()=>{ countdownTimeEnd = false}} title={`Résolvez autant d'équation possible en ${globalTimer} s`} show={countdownTimeEnd}>
-  {#if score > 0}
-    <div class="score">Au niveau <span class="bold">{level}</span>, votre score est de {score} !</div>
-  {:else}
-    <div class="score">Obtenez votre score après votre tentative</div>
-  {/if}
-  {#if localProfile}
-    Améliorez votre score {localProfile["scoreArray"]}
-  {/if}
-</Modal> -->
-
-
-
-
 <style>
   .container{
     position: relative;
@@ -152,13 +134,5 @@
     width:100%;
     height:100%;
     z-index: 10;
-  }
-  .score{
-    width: 80%;
-    text-align: center;
-  }
-  .bold{
-    font-weight: bold;
-  }
-  
+  }  
 </style>

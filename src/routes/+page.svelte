@@ -10,18 +10,15 @@
     level:number,
     scoreArray:number[]
   }
-
   
   let { data }= $props();
   let localProfile:Profile=$state({name:"", scoreArray:[], level:0});
   //TODO : faire calculer le score à l'intérieur !
   let score:number=$state(0);
 
-  // let newGameTrigger:boolean=$state(false);
   let gameTrigger:{new:boolean, end:boolean}=$state({new:false, end:true});
-  let level:number = $state(0);
   let levelString:string[]=["facile", "moyen", "difficile"];
-  let equationArray:EquationType[] = $derived(data["equationArray"][level]);
+  let equationArray:EquationType[] = $derived(data["equationArray"][localProfile["level"]]);
 
   let mentalCalculatioSettings = {
     globalTimer:10
@@ -34,7 +31,10 @@
   });
   function updateProfile(){
     let storage = localStorage.getItem("mental-calculation");
-    if(storage!=null) localProfile = JSON.parse(storage);
+    if(storage!=null){
+      //Vérification du bon type du profil (pas de données manquantes)
+      localProfile = JSON.parse(storage);
+    }
   }
   $effect(()=>{
     saveProfile(localProfile);
@@ -52,7 +52,6 @@
     // Enregistre
     console.log(scoreArray);
     localProfile["scoreArray"] = scoreArray;
-    // localStorage.setItem("mental-calculation", JSON.stringify(localProfile));
   }
   // $effect(()=>{
   //   if( gameTrigger["end"] == true ){
@@ -64,20 +63,18 @@
 <div class="container">
   <Navbar bind:newGameTrigger={gameTrigger["new"]} bind:level={localProfile["level"]} height={"50px"}/>
   <div class="main">
-    <MentalCalculation bind:gameTrigger={gameTrigger} { equationArray } {mentalCalculatioSettings} {score}/>
+    <MentalCalculation bind:gameTrigger={gameTrigger} { equationArray } {mentalCalculatioSettings} bind:score={score}/>
   </div>
 </div>
+
 <Modal onclick={()=>{ gameTrigger["new"] = true}} title={`Résolvez autant d'équation possible en ${mentalCalculatioSettings["globalTimer"]} s`} show={gameTrigger["end"]}>
-  <!-- {#if score > 0}
-    <div class="score">Au niveau <span class="bold">{levelString[level]}</span>, votre score est de {score} !</div>
-  {:else}
-    <div class="score">Obtenez votre score après votre tentative</div>
-  {/if} -->
+  {#if score > 0}
+    <div class="score">Au niveau <span class="bold">{levelString[localProfile["level"]]}</span>, votre score est de {score} !</div>
+  {/if}
   {#if localProfile}
-    Améliorez votre score {localProfile["scoreArray"]}
+    Améliorez votre meilleur score {localProfile["scoreArray"]}
   {/if}
 </Modal>
-<!-- <Modal></Modal> -->
 
 
 <style>
@@ -93,5 +90,13 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .score{
+    width: 80%;
+    text-align: center;
+  }
+  .bold{
+    font-weight: bold;
   }
 </style>

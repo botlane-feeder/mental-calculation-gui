@@ -1,7 +1,7 @@
 <script lang="ts">
   interface P {
-    equation:string|null,
-    response:number,
+    equation:string,
+    response:number|null,
     winAnimating:boolean,
     wrongAnimating:boolean
   }
