@@ -10,7 +10,7 @@
    * - difficile
    */
   
-  let {newGameTrigger=$bindable(), height}:{newGameTrigger:boolean, height:string}=$props();
+  let {newGameTrigger=$bindable(), height, level=$bindable()}:{newGameTrigger:boolean, height:string, level:number}=$props();
   let closeDropdown:boolean = $state(false)
 
   function onButtonClick(callback:any){
@@ -22,11 +22,11 @@
 <div class="container" style="height:{height}">
   <Dropdown title={"MENU"} direction={"column"}  bind:closeDropdown={closeDropdown}>
     <button onclick={()=>{onButtonClick(()=>{newGameTrigger=true})}}>Nouvelle partie</button>
-    <!-- <Dropdown title={"Niveau"} direction={"row"}>
-      <button>Facile</button>
-      <button>Moyen</button>
-      <button>Difficile</button>
-    </Dropdown> -->
+    <Dropdown title={"Niveau"} direction={"row"}>
+      <button onclick={()=>{onButtonClick(()=>{level=0})}}>Facile</button>
+      <button onclick={()=>{onButtonClick(()=>{level=1})}}>Moyen</button>
+      <button onclick={()=>{onButtonClick(()=>{level=2})}}>Difficile</button>
+    </Dropdown>
 
     <!-- <Dropdown title={"Jeux seul"} direction={"row"}>
       <button>Sudoku</button>

@@ -6,13 +6,15 @@
   let { data }= $props();
 
   let newGameTrigger:boolean=$state(false);
-  let equationArray:EquationType[] = data["equationArray"];
+  let level:number = $state(0);
+  let levelString:string[]=["facile", "moyen", "difficile"];
+  let equationArray:EquationType[] = $derived(data["equationArray"][level]);
 </script>
 
 <div class="container">
-  <Navbar bind:newGameTrigger={newGameTrigger} height={"50px"}/>
+  <Navbar bind:newGameTrigger={newGameTrigger} bind:level={level} height={"50px"}/>
   <div class="main">
-    <MentalCalculation bind:newGameTrigger={newGameTrigger} { equationArray }/>
+    <MentalCalculation bind:newGameTrigger={newGameTrigger} { equationArray } level={levelString[level]}/>
   </div>
 </div>
 

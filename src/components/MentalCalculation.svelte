@@ -8,7 +8,7 @@
 
   import Modal from "./Modal.svelte";
 
-  let { newGameTrigger=$bindable(), equationArray }:{newGameTrigger:boolean, equationArray:EquationType[] } = $props();
+  let { newGameTrigger=$bindable(), equationArray, level }:{newGameTrigger:boolean, equationArray:EquationType[], level:string } = $props();
 
   let globalTimer = 30;
   
@@ -101,14 +101,14 @@
   {#key winAnimating || wrongAnimating}
   <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
   {/key}
-  <CountdownBar bind:triggers={countdownBarTriggers} duration={3000} bind:end={countdownBarEnd}/>
+  <CountdownBar bind:triggers={countdownBarTriggers} duration={5000} bind:end={countdownBarEnd}/>
   <Keypad bind:response={response} {verification}/>
   
   {#if countdownTimeEnd} <div class="blur"> </div> {/if}
 </div>
 <Modal onclick={()=>{ countdownTimeEnd = false}} title={`Résolvez autant d'équation possible en ${globalTimer} s`} show={countdownTimeEnd}>
   {#if score > 0}
-    <div class="score">Votre score est de {score} !</div>
+    <div class="score">Au niveau {level}, votre score est de {score} !</div>
   {:else}
     <div class="score">Obtenez votre score après votre tentative</div>
   {/if}
