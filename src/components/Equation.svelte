@@ -1,11 +1,17 @@
 <script lang="ts">
-  let {equation, response, winAnimating, wrongAnimating}: {equation:string, response:number, winAnimating:boolean, wrongAnimating:boolean} = $props();
+  interface P {
+    equation:string|null,
+    response:number,
+    winAnimating:boolean,
+    wrongAnimating:boolean
+  }
+  let {equation, response, winAnimating, wrongAnimating}:P = $props();
 </script>
 
 <div class="container">
   <div class="borderAnimating  {winAnimating ? 'winAnimating' : ''} {wrongAnimating ? 'wrongAnimating' : ''}">
     {equation} = 
-    {#if response != 0 }
+    {#if response != null }
     {response}
     {/if}
   </div>

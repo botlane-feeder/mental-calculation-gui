@@ -2,9 +2,10 @@
 
   // let response:number=$state(0);
   
-  let { response=$bindable(), verification }:{response:number, verification:any}=$props();
+  let { response=$bindable(), verification }:{response:number|null, verification:any}=$props();
   
   function pushResponse(cell:string){
+    if(response == null) response = 0;
     if(cell == "C"){
       response=0;
     }else if(cell == "-"){
@@ -17,7 +18,7 @@
     // Envoie la réponse
     verification()
     // Remet à 0 la réponse
-    response = 0;
+    response = null;
   }
 </script>
 

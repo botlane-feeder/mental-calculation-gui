@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { EquationType, CoundownTriggers } from "$lib/types";
-  
+  import { onMount } from 'svelte';
+
   import CountdownTime from "./CountdownTime.svelte";
   import Equation from "./Equation.svelte";
   import CountdownBar from "./CountdownBar.svelte";
@@ -8,48 +9,94 @@
 
   import Modal from "./Modal.svelte";
 
-  let { newGameTrigger=$bindable(), equationArray, level }:{newGameTrigger:boolean, equationArray:EquationType[], level:string } = $props();
+  interface P {
+    gameTrigger:{new:boolean, end:boolean},
+    equationArray:EquationType[],
+    mentalCalculatioSettings:any,
+    score:number
+  };
 
-  let globalTimer = 30;
-  
-  let score = $state(0);
+  let { gameTrigger=$bindable(), equationArray, mentalCalculatioSettings, score=$bindable() }:P = $props();
 
-  let response:number = $state(0);
+  // let score = $state(0);
+
+  let localProfile = $state();
+
+  let response:number|null = $state(null);
   let winAnimating:boolean=$state(false);
   let wrongAnimating:boolean=$state(false);
-  let idEquation:number = $state( sortEquation( equationArray.length-1 ) );
+  let idEquation:number = $state( getEquation( equationArray.length-1 ) );
 
   let countdownTimeTriggers:CoundownTriggers=$state({start:false, pause:false, reset:false});
-  let countdownTimeEnd:boolean= $state(true);
 
   let countdownBarTriggers:CoundownTriggers=$state({start:false, pause:false, reset:false});
   let countdownBarEnd:boolean= $state(false);
 
   let equation:string = $derived(equationArray[idEquation]["equation"]);
 
+  // Vérifie une réponse. En cas de bonne réponse lance une nouvelle équation et calcule le score
   function verification(){
-    if(!countdownTimeEnd && equationArray[idEquation]["result"] == response){
+    if(!gameTrigger["end"] && equationArray[idEquation]["result"] == response){
       // Affichage vert
       winAnimation();
       // Lance une nouvelle équation
       startNewEquation();
-      score += 1;
+      score += 1; //calculateScore();
     }else{
       // Affichage rouge
       wrongAnimation();
     }
   }
-  function sortEquation(max:number):number{
+  // Retourne une équation aléatoire depuis la liste
+  function getEquation(max:number):number{
     return Math.floor(Math.random() * max);
   }
+  // Modifie les éléments pour lancer une nouvelle équation
   function startNewEquation(){
     // Selectionne une nouvelle equation
-    idEquation = sortEquation( equationArray.length-1 );
+    idEquation = getEquation( equationArray.length-1 );
     // Relance le chrono
     countdownBarTriggers["start"]=true;
+    // Réinitialisation de la réponse
+    response = null;
 
   }
+  // Modifie les éléments pour lancer une nouvelle partie
+  function startNewGame(){
+    // Gestion des timers
+    countdownTimeTriggers["start"]=true;
+    // Mise à 0 du score actuel
+    score=0;
+    // Lancement d'une nouvelle équation
+    startNewEquation();
+  }
 
+
+  // Écoute pour le lancement initial du jeu
+  $effect(()=>{
+    if( gameTrigger["new"] ){
+      gameTrigger["new"]=false;
+      gameTrigger["end"]=false;
+      startNewGame();
+    }
+  });
+  // Écoute la fin d'une décompte d'une équation et relance un équation ou la fin du décompte global
+  $effect(()=>{
+    if(!gameTrigger["end"] && countdownBarEnd){
+      // Affichage rouge
+      wrongAnimation();
+      // Lance une nouvelle équation
+      startNewEquation();
+    }else if( gameTrigger["end"] ){
+      countdownBarTriggers["pause"]=true;
+    }
+  });
+
+  function calculateScore(){
+    score = score;
+  }
+
+  // Animations visuelles
   function winAnimation() {
     winAnimating = true;
     setTimeout(() => {
@@ -62,58 +109,29 @@
       wrongAnimating = false;
     }, 1000);
   }
-  function startNewGame(){
-    countdownTimeTriggers["start"]=true;
-    countdownBarTriggers["start"]=true;
-    score=0;
-    startNewEquation();
-  }
-  // Lancement initial du jeu
-  $effect(()=>{
-    if( newGameTrigger ){
-      newGameTrigger=false;
-      countdownTimeEnd=false;
-      startNewGame();
-    }
-  })
-  $effect(()=>{
-    if(!countdownTimeEnd){
-      startNewGame();
-    }
-  });
-  // 
-  $effect(()=>{
-    if(!countdownTimeEnd && countdownBarEnd){
-      // Affichage rouge
-      wrongAnimation();
-      // Lance une nouvelle équation
-      startNewEquation();
-      // Réinitialisation de la réponse
-      response = 0;
-    }else if( countdownTimeEnd ){
-      countdownBarTriggers["pause"]=true;
-    }
-  })
 </script>
 
 <div class="container">
-  <CountdownTime bind:triggers={countdownTimeTriggers} bind:end={countdownTimeEnd} duration={globalTimer}/>
+  <CountdownTime bind:triggers={countdownTimeTriggers} bind:end={gameTrigger["end"]} duration={mentalCalculatioSettings["globalTimer"]}/>
   {#key winAnimating || wrongAnimating}
   <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
   {/key}
   <CountdownBar bind:triggers={countdownBarTriggers} duration={5000} bind:end={countdownBarEnd}/>
   <Keypad bind:response={response} {verification}/>
   
-  {#if countdownTimeEnd} <div class="blur"> </div> {/if}
+  {#if gameTrigger["end"]} <div class="blur"> </div> {/if}
 </div>
 
-<Modal onclick={()=>{ countdownTimeEnd = false}} title={`Résolvez autant d'équation possible en ${globalTimer} s`} show={countdownTimeEnd}>
+<!-- <Modal onclick={()=>{ countdownTimeEnd = false}} title={`Résolvez autant d'équation possible en ${globalTimer} s`} show={countdownTimeEnd}>
   {#if score > 0}
     <div class="score">Au niveau <span class="bold">{level}</span>, votre score est de {score} !</div>
   {:else}
     <div class="score">Obtenez votre score après votre tentative</div>
   {/if}
-</Modal>
+  {#if localProfile}
+    Améliorez votre score {localProfile["scoreArray"]}
+  {/if}
+</Modal> -->
 
 
 
