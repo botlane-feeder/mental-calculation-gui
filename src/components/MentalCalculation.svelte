@@ -106,9 +106,10 @@
   
   {#if countdownTimeEnd} <div class="blur"> </div> {/if}
 </div>
+
 <Modal onclick={()=>{ countdownTimeEnd = false}} title={`Résolvez autant d'équation possible en ${globalTimer} s`} show={countdownTimeEnd}>
   {#if score > 0}
-    <div class="score">Au niveau {level}, votre score est de {score} !</div>
+    <div class="score">Au niveau <span class="bold">{level}</span>, votre score est de {score} !</div>
   {:else}
     <div class="score">Obtenez votre score après votre tentative</div>
   {/if}
@@ -137,6 +138,9 @@
   .score{
     width: 80%;
     text-align: center;
+  }
+  .bold{
+    font-weight: bold;
   }
   
 </style>

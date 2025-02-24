@@ -10,10 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ADD
 
 - Ajouter une page à propos, avec ce changelog
+- Ajouter un stockage des scores dans le localstorage
 
 ### UPDATE
 
 - TODO : Changer les boutons, de `<div>` en `<button>`
+
+## [0.6.0] - 2025-02-24
+
+### UPDATE
+
+- Modification du timer pour rendre disponible le bouton Rejouer
 
 ## [0.5.0] - 2025-02-24
 
@@ -25,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### UPDATE
 
-- Modification du `globalTimer` à 30s
+- Modification du `globalTimer` à 30s et du `equationTimer` à 5s
 - Quand le timer d'une équation est fini, la réponse du joueur est réinitialisée
 - TODO : Changer les boutons, de `<div>` en `<button>`
 

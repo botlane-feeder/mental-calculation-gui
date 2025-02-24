@@ -1,10 +1,17 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
 
   // import close from "$static/icons/closeCrosse-black.png"
+  interface P{
+    onclick: any,
+    title: string,
+    show: boolean,
+    children?: Snippet
+  }
 
-  let {onclick, title, show, children} = $props();
+  let {onclick, title, show, children}:P = $props();
   let modalButton=$state({
-    delay:5,
+    delay:10,
     idInterval:0,
     btnDisabled:true
   });
@@ -31,7 +38,7 @@
     <p class="title">{title}</p>
     <button {onclick} disabled={modalButton["btnDisabled"]}>CALCULER !</button>
     <p class="text"></p>
-    {@render children()} 
+    {@render children?.()} 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="closingCross" onmouseup={()=>{show=false;}}>X</div>
   </div>
