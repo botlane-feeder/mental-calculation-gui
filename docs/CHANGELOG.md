@@ -5,12 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Dev
+
+### ADD
+
+- Ajouter une page à propos, avec ce changelog
+
+### UPDATE
+
+- TODO : Changer les boutons, de `<div>` en `<button>`
+
+## [0.5.0] - 2025-02-24
+
+### ADD
+
+- Ajout d'une modale pour un titre explication le bouton de lancement et l'affichage du score
+  - Délai sur le bouton de lancement, pour éviter un click d'erreur
+- Ajout d'un menu pour lancer une partie et choisir le niveau de difficulté
+
+### UPDATE
+
+- Modification du `globalTimer` à 30s
+- Quand le timer d'une équation est fini, la réponse du joueur est réinitialisée
+- TODO : Changer les boutons, de `<div>` en `<button>`
+
 ## [0.4.0] - 2025-02-10
 
 ### ADD
 
-- Affichage du score
-
+- Affichage du scores
 
 ## [0.3.1] - 2025-02-10
 
@@ -23,7 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ADD
 
 - Ajout d'un décompte pour chronométrer la résolution d'une équation
+  - composant : `CountdownBar.svelte`
 - Ajout d'un décompte global pour tenter de résoudre un certain nombre d'équations
+  - composant : `CountdownTime.svelte`
 - Ajout d'un bouton pour lancer le defi
 - Mise en place de 100 équations côté SvelteKit
 
@@ -70,4 +95,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ajout des composants :
   - `MentalCalculation.svelte`
   - `Equation.svelte`
-  - `KEypad.svelte`
+  - `Keypad.svelte`

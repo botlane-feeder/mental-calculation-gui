@@ -32,6 +32,15 @@
   <div class="cell" onclick={enterResponse}> Entrer </div>
 </div>
 
+<!-- <div class="container">
+  <div class="numbers">
+    {#each ["1","2","3","4","5","6","7","8","9","-","0","C"] as cell}
+    <button class="cell number" onclick={()=>{pushResponse(cell);}}>{cell}</button>
+    {/each}
+  </div>
+  <button class="cell" onclick={enterResponse}> Entrer </button>
+</div> -->
+
 <style>
   .container{
     display: flex;
@@ -43,13 +52,13 @@
 
     cursor: pointer;
   }
-  .numbers{
+  div.numbers{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     
   }
-  .cell{
+  div.cell{
     display:flex;
     justify-content:center;
     align-items: center;
@@ -62,11 +71,11 @@
     /* background-color: #FFF2C2; */
     
   }
-  .cell:hover{
+  div.cell:hover{
     box-shadow: -5px -5px 5px grey;
     background-color: lightgrey;
   }
-  .number{
+  div.number{
     height: 65px;
   }
 </style>
