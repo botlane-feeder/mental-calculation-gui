@@ -92,13 +92,14 @@
     justify-content: center;
     align-items: center;
 
+    background-color: #FFFFFF;
+    border-radius: 30px;
+
     cursor:pointer;
     transition: all 0.3s ease;
   }
   .closingCross:hover{
     scale: 1.2;
-    background-color: #FFFFFF;
-    border-radius: 30px;
   }
   p{
     padding: 3px 15px;
