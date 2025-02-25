@@ -15,6 +15,7 @@
   let localProfile:Profile=$state({name:"", scoreArray:[], level:0});
   //TODO : faire calculer le score à l'intérieur !
   let score:number=$state(0);
+  let lastScore:number=$state(0);
 
   let gameTrigger:{new:boolean, end:boolean}=$state({new:false, end:true});
   let levelString:string[]=["facile", "moyen", "difficile"];
@@ -23,7 +24,6 @@
   let mentalCalculatioSettings = {
     globalTimer:10
   };
-
   // Quand l'application est disponible sur navigateur
   onMount(()=>{
     // Récupération du profil local
@@ -53,11 +53,13 @@
     console.log(scoreArray);
     localProfile["scoreArray"] = scoreArray;
   }
-  // $effect(()=>{
-  //   if( gameTrigger["end"] == true ){
-  //     addScore(score);
-  //   }
-  // });
+  $effect(()=>{
+    if(score != 0 && gameTrigger["end"]){
+      lastScore = score;
+      score = 0;
+      addScore(lastScore);
+    }
+  });
 </script>
 
 <div class="container">
@@ -67,12 +69,27 @@
   </div>
 </div>
 
+
+{#snippet printScoreArray(scoreArray:number[])}
+  <table>
+    <thead><tr><th>Classement</th><th>Score</th></tr></thead>
+    <tbody>
+      {#each scoreArray as oneScore, index}
+      <tr>
+        <th>{index+1}</th>
+        <td>{oneScore}</td>
+      </tr>  
+      {/each}
+    </tbody>
+  </table>
+{/snippet}
+
 <Modal onclick={()=>{ gameTrigger["new"] = true}} title={`Résolvez autant d'équation possible en ${mentalCalculatioSettings["globalTimer"]} s`} show={gameTrigger["end"]}>
-  {#if score > 0}
-    <div class="score">Au niveau <span class="bold">{levelString[localProfile["level"]]}</span>, votre score est de {score} !</div>
+  {#if lastScore > 0}
+    <div class="score">Au niveau <span class="bold">{levelString[localProfile["level"]]}</span>, votre score est de {lastScore} !</div>
   {/if}
   {#if localProfile["scoreArray"].length > 0}
-    Améliorez votre meilleur score {localProfile["scoreArray"]}
+    Améliorez votre meilleur score :{@render printScoreArray(localProfile["scoreArray"])}
   {:else}
     Faites votre première tentative pour établir un score !
   {/if}
@@ -101,4 +118,17 @@
   .bold{
     font-weight: bold;
   }
-</style>
+  table {
+    border-collapse: collapse;
+    display:inline-block;
+    padding: 10px;
+  }
+  th, td{
+    width: 60px;
+    border:black solid 1px;
+    padding: 3px 10px;
+  }
+  td{
+    text-align: right;
+  }
+</style>s

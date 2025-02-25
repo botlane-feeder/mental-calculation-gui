@@ -7,26 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Dev
 
-### ADD
-
-- Ajouter une page à propos, avec ce changelog
-
 ### UPDATE
 
-- Modification du calcul du score
 - TODO : Changer les boutons, de `<div>` en `<button>`
 
 ## [0.6.0] - 2025-02-24
 
 ### ADD
 
+- Ajouter d'un champ `scoreFactor` dans une équation pour le calcul du score
 - Ajouter un stockage de la difficulté et des scores dans le localstorage
-- Ajout du stockage du score : WIP
+- Ajouter une page à propos, avec ce changelog
 
 ### UPDATE
 
 - Modification du timer pour rendre disponible le bouton Rejouer
 - Modification du design de la croix de la modal
+- Modification du calcul du score, en fonction du `scoreFactor` et du temps restant
 
 ### FIX
 
