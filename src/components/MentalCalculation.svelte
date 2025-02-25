@@ -25,6 +25,7 @@
 
   let countdownBarTriggers:CoundownTriggers=$state({start:false, pause:false, reset:false});
   let countdownBarEnd:boolean= $state(false);
+  let countdownBarTimes=$state({duration:5000, remaining:0});
 
   let equation:string = $derived(equationArray[idEquation]["equation"]);
 
@@ -33,10 +34,10 @@
     if(!gameTrigger["end"] && equationArray[idEquation]["result"] == response){
       // Affichage vert
       winAnimation();
-      // Lance une nouvelle équation
-      startNewEquation();
       // Calcule le score
       calculateScore();
+      // Lance une nouvelle équation
+      startNewEquation();
     }else{
       // Affichage rouge
       wrongAnimation();
@@ -88,7 +89,7 @@
   });
 
   function calculateScore(){
-    score += Math.round(score + equationArray[idEquation]["scoreFactor"]*100)/100;
+    score = Math.round((score + (equationArray[idEquation]["scoreFactor"] * countdownBarTimes["remaining"]/countdownBarTimes["duration"]))*100)/100;
   }
 
   // Animations visuelles
@@ -111,7 +112,7 @@
   {#key winAnimating || wrongAnimating}
   <Equation {equation} {response} {winAnimating} {wrongAnimating}/>
   {/key}
-  <CountdownBar bind:triggers={countdownBarTriggers} duration={5000} bind:end={countdownBarEnd}/>
+  <CountdownBar bind:triggers={countdownBarTriggers} bind:times={countdownBarTimes} bind:end={countdownBarEnd}/>
   <Keypad bind:response={response} {verification}/>
   
   {#if gameTrigger["end"]} <div class="blur"> </div> {/if}

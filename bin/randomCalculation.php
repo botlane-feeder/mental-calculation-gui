@@ -46,31 +46,31 @@ $operationSettingsArray = [
     "operation" => "-",
     "limits" => ["min"=>0, "max"=>10],
     "negative"=>false,
-    "scoreFactor"=>1.2
+    "scoreFactor"=>2
   ],
   [
     "operation" => "+",
     "limits" => ["min"=>10, "max"=>30],
     "negative"=>false,
-    "scoreFactor"=>1.2
+    "scoreFactor"=>2
   ],
   [
     "operation" => "+",
     "limits" => ["min"=>20, "max"=>50],
     "negative"=>false,
-    "scoreFactor"=>1.4
+    "scoreFactor"=>3
   ],
   [
     "operation" => "-",
     "limits" => ["min"=>10, "max"=>30],
     "negative"=>false,
-    "scoreFactor"=>1.5
+    "scoreFactor"=>5
   ],
   [
     "operation" => "*",
     "limits" => ["min"=>1, "max"=>10],
     "negative"=>false,
-    "scoreFactor"=>1.5
+    "scoreFactor"=>5
   ],
 ];
 $levelSettingsArray=[

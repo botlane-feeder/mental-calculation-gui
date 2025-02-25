@@ -22,7 +22,7 @@
   let equationArray:EquationType[] = $derived(data["equationArray"][localProfile["level"]]);
 
   let mentalCalculatioSettings = {
-    globalTimer:10
+    globalTimer:60
   };
   // Quand l'application est disponible sur navigateur
   onMount(()=>{
@@ -43,14 +43,12 @@
     localStorage.setItem("mental-calculation", JSON.stringify(localProfile));
   } 
   function addScore(newScore:number){
-    // let scores = [3,2,5,6]//localStorage.getItem("mental-calculation")["scores"];
     let scoreArray:number[] = localProfile["scoreArray"]
     scoreArray.push(newScore);
     scoreArray.sort((a,b)=>b-a)
     // Limite à 3 scores
     if(scoreArray.length > 2) scoreArray.splice(3);
     // Enregistre
-    console.log(scoreArray);
     localProfile["scoreArray"] = scoreArray;
   }
   $effect(()=>{

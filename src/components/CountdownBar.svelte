@@ -1,7 +1,13 @@
 <script lang="ts">
   import type { CoundownTriggers } from "$lib/types";
 
-  let {triggers=$bindable(), duration, end=$bindable()}:{triggers:CoundownTriggers, duration:number, end:boolean} = $props();
+  interface P{
+    triggers:CoundownTriggers,
+    times:{duration:number, remaining:number},
+    end:boolean
+  }
+
+  let {triggers=$bindable(), times=$bindable(), end=$bindable()}:P = $props();
 
   let progress:number = $state(100);
   let intervalId:number=0;
@@ -13,11 +19,12 @@
     intervalId = setInterval(() => {
       if (progress > 0) {
         progress -= 1;
+        times["remaining"] -= times["duration"]/100;
       } else {
         pause();
         end=true;
       }
-    }, duration/100);
+    }, times["duration"]/100);
   }
 
   function pause() {
@@ -27,6 +34,7 @@
   
   function reset() {
     progress = 100;
+    times["remaining"] = times["duration"];
     end=false;
     clearInterval(intervalId);
     intervalId = 0;
