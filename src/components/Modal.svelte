@@ -69,7 +69,8 @@
     width: 80%;
     max-width: 1000px;
     min-width: 350px;
-    height: 300px;
+    min-height: 300px;
+    max-height: 800px;
 
     background-color: #FFFFFFAA;
     border-radius: 15px;

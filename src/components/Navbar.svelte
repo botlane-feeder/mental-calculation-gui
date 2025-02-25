@@ -23,11 +23,11 @@
   <Dropdown title={"MENU"} direction={"column"}  bind:closeDropdown={closeDropdown}>
     <button onclick={()=>{onButtonClick(()=>{newGameTrigger=true})}}>Nouvelle partie</button>
     <Dropdown title={"Niveau"} direction={"row"}>
-      <button onclick={()=>{onButtonClick(()=>{level=0})}}>Facile</button>
-      <button onclick={()=>{onButtonClick(()=>{level=1})}}>Moyen</button>
-      <button onclick={()=>{onButtonClick(()=>{level=2})}}>Difficile</button>
+      <button onclick={()=>{onButtonClick(()=>{level=0})}} disabled={level==0}>Facile</button>
+      <button onclick={()=>{onButtonClick(()=>{level=1})}} disabled={level==1}>Moyen</button>
+      <button onclick={()=>{onButtonClick(()=>{level=2})}} disabled={level==2}>Difficile</button>
     </Dropdown>
-
+    <a href="/about">À propos</a>
     <!-- <Dropdown title={"Jeux seul"} direction={"row"}>
       <button>Sudoku</button>
       <button>Masteming</button>
@@ -46,27 +46,31 @@
 <style>
   .container{
     position: relative;
-
     z-index: 15;
   }
 
-  button{
-    /* position: absolute; */
-    /* top:50%; */
+  button, a{
     background-color:#0a0a23;
     color: #fff;
     border:none; 
     border-radius:10px; 
     padding: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    min-width: 100px;
     /* min-height:30px;  */
-    /* min-width: 120px; */
+    text-align: center;
     cursor: pointer;
 
     transition: all 0.3s ease;
   }
-  button:hover{
-    background-color:#002ead;
+  button:hover, a:hover{
+    background-color:#0068ad;
     border-radius:10px;
     box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+  }
+  button:disabled{
+    background-color:#0068ad;
+    border-radius:10px;
   }
 </style>

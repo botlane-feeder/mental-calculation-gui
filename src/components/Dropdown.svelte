@@ -40,7 +40,21 @@
     flex-direction: row;
   }
   button{
-    width: 100px;
+
+    background-color: lightcoral;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding: 5px 10px;
+    font-size: 16px;
+    text-decoration: none;
+    min-width: 100px;
+    /* min-height:30px;  */
+    text-align: center;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
     font-size: 16px;
     display: flex;
     justify-content: center;
