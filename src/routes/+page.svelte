@@ -71,8 +71,10 @@
   {#if score > 0}
     <div class="score">Au niveau <span class="bold">{levelString[localProfile["level"]]}</span>, votre score est de {score} !</div>
   {/if}
-  {#if localProfile}
+  {#if localProfile["scoreArray"].length > 0}
     Améliorez votre meilleur score {localProfile["scoreArray"]}
+  {:else}
+    Faites votre première tentative pour établir un score !
   {/if}
 </Modal>
 

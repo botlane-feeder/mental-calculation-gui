@@ -1,10 +1,5 @@
 import type { EquationType } from "$lib/types";
 
-interface mentalCalculationDataType {
-  levelFactor:number,
-  equations:EquationType[]
-};
-
 let equationArray:EquationType[][] = [
   [
     {"equation":"22 + 15","result":37,"scoreFactor":1.2},

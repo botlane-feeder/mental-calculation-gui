@@ -88,8 +88,8 @@
   });
 
   function calculateScore(){
-    score = score+1;
-    console.log(score);
+    score += equationArray[idEquation]["scoreFactor"];
+    // console.log(score);
   }
 
   // Animations visuelles
