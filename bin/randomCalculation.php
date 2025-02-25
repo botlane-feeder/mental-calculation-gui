@@ -35,7 +35,7 @@
  * 8 : + et -, avec limites de 1 à 30 & * avec limites de 1 à 20 & / avec limites de 1 à 10
 */
 
-$operationSettings = [
+$operationSettingsArray = [
   [
     "operation" => "+",
     "limits" => ["min"=>0, "max"=>10],
@@ -73,69 +73,20 @@ $operationSettings = [
     "scoreFactor"=>1.5
   ],
 ];
-$levelSettings=[
+$levelSettingsArray=[
   "ease"=>[0,0,1,2],
-  "medium"=>[1,2,3],
+  "medium"=>[1,1,2,3],
   "hard"=>[2,3,4,5]
 ];
-$levelArray = [
-  [
-    "operationArray" => [ "+","+","+","-" ],
-    "limits" => [
-      "default"=>["min"=>0, "max"=>10],
-    ],
-    "negative"=>false,
-    "scoreFactor"=>0.5
-  ],
-  [
-    "operationArray" => [ "+","+","-" ],
-    "limits" =>  [
-      "+"=>["min"=>10, "max"=>30],
-      "-"=>["min"=>0, "max"=>20],
-    ],
-    "negative"=>false,
-    "scoreFactor"=>0.8
-  ],
-  [
-    "operationArray" => [ "+","-" ],
-    "limits" =>  [
-      "+"=>["min"=>20, "max"=>50],
-      "-"=>["min"=>10, "max"=>40],
-    ],
-    "negative"=>false,
-    "scoreFactor"=>1
-  ],
-  [
-    "operationArray" => [ "+","+","+","-","-","*" ],
-    "limits" => [
-      "+"=>["min"=>10, "max"=>30],
-      "-"=>["min"=>0, "max"=>20],
-      "*"=>["min"=>1, "max"=>10]
-    ],
-    "negative"=>false,
-    "scoreFactor"=>1.2
-  ],
-  [
-    "operationArray" => [ "+","-","*" ],
-    "limits" => [
-      "+"=>["min"=>10, "max"=>30],
-      "-"=>["min"=>0, "max"=>20],
-      "*"=>["min"=>1, "max"=>10]
-    ],
-    "negative"=>false,
-    "scoreFactor"=>1.5
-  ]
 
-];
-
-function getEquation(array $level):array{
+function getEquation(array $operationSettings):array{
   // Générer l'opération entre les deux
   $operationArray = ["+", "-", "*", "/"];
-  $operation = $level["operationArray"][ rand(0, count($level["operationArray"])-1) ];
+  $operation = $operationSettings["operation"];
   // Générer deux nombre random
-  $min = $level["limits"][$operation]["min"]??$level["limits"]["default"]["min"];
-  $max = $level["limits"][$operation]["max"]??$level["limits"]["default"]["max"];
-  if( !$level["negative"] && $operation === "-"){
+  $min = $operationSettings["limits"]["min"];
+  $max = $operationSettings["limits"]["max"];
+  if( !$operationSettings["negative"] && $operation === "-"){
     $firstNumber = rand($min + intval($max*1/4), $max);
     $secondNumber = rand(0, $firstNumber);    
   }else{
@@ -145,7 +96,7 @@ function getEquation(array $level):array{
   // Générer le résultat
   $result = getResult($firstNumber, $secondNumber, $operation); 
   // Générer la configuration
-  return ["equation" => $firstNumber." ".$operation." ".$secondNumber, "result"=>$result];
+  return ["equation" => $firstNumber." ".$operation." ".$secondNumber, "result"=>$result, "scoreFactor"=>$operationSettings["scoreFactor"]];
 }
 
 function getResult(int $firstNumber, int $secondNumber, string $operation): int{
@@ -159,7 +110,10 @@ function getResult(int $firstNumber, int $secondNumber, string $operation): int{
   return $result;
 }
 
+
+$levelName="hard";
 for ($i=0; $i < 100; $i++) { 
-  $oneEquation = getEquation($levelArray[3]);
+  $levelSettings = $levelSettingsArray[$levelName][rand( 0, count($levelSettingsArray[$levelName])-1 )];
+  $oneEquation = getEquation( $operationSettingsArray[$levelSettings] );
   print( json_encode($oneEquation).",\n");
 }
