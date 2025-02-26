@@ -1,7 +1,5 @@
 <script lang="ts">
   let { data } = $props();
-  console.log(data)
-  // let version = "0.6.0";
 </script>
 
 <div class="container">

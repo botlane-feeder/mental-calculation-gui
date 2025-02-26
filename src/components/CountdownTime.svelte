@@ -8,9 +8,6 @@
     let str="";
     let min = Math.floor(countdown/(60*1000));
     let sec = Math.ceil((countdown-(min*60*1000))/1000);
-    // console.log(countdown/(60*1000));
-    // console.log(Math.ceil(countdown/(60*1000)));
-    console.log("Min : "+min+" Sec : "+sec);
     if(conf["format"] == "min"){
       str = min+" : "+sec;
     }else{
