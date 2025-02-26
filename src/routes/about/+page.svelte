@@ -12,6 +12,7 @@
     <ul>
       <li>Développé par <a href="https://github.com/botlane-feeder">botlane-feeder</a></li>
       <li>Version actuelle : {data["version"]}</li>
+      <li>Changelog disponible <a href="https://github.com/botlane-feeder/mental-calculation-gui/blob/main/docs/CHANGELOG.md" target="_blank">ici</a></li>
     </ul>
     <li>Calcul du score</li>
     <ul>
