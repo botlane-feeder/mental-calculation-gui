@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - TODO : Changer les boutons, de `<div>` en `<button>`
 
-## [0.6.0] - 2025-02-24
+## [0.6.1] - 2025-02-26
+
+### FIX
+
+- Modification de l'affichage du timer en secondes
+
+## [0.6.0] - 2025-02-25
 
 ### ADD
 

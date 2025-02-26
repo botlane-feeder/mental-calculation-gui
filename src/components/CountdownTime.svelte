@@ -7,7 +7,10 @@
   let countdownString:string = $derived.by(()=>{
     let str="";
     let min = Math.floor(countdown/(60*1000));
-    let sec = Math.floor(countdown/1000);
+    let sec = Math.ceil((countdown-(min*60*1000))/1000);
+    // console.log(countdown/(60*1000));
+    // console.log(Math.ceil(countdown/(60*1000)));
+    console.log("Min : "+min+" Sec : "+sec);
     if(conf["format"] == "min"){
       str = min+" : "+sec;
     }else{
@@ -23,12 +26,20 @@
     //Lance l'interval
     idInterval = setInterval(()=>{
       if(countdown > 0){
-        countdown -=10
+        countdown -=100
       }else{
         pause();
         end=true;
       }
-    },10);
+    },100);
+  }
+  function decremente(){
+    if(countdown > 0){
+      countdown -=10
+    }else{
+      pause();
+      end=true;
+    }
   }
   function pause(){
     clearInterval(idInterval);

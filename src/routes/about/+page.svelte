@@ -20,7 +20,7 @@
     <li>Stockage de vos données</li>
     <ul>
       <li>Il n'y a aucun stockage de donnée sur un serveur, tout est stocké sur votre navigateur.</li>
-      <li>Seulement l'historique de votre score et le niveu de difficulté choisi.</li></ul>
+      <li>Seulement l'historique de votre score et le niveau de difficulté choisi.</li></ul>
   </ul>
 </div>
 
