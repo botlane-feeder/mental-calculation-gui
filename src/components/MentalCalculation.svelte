@@ -1,10 +1,8 @@
 <script lang="ts">
   import type { EquationType, CoundownTriggers } from "$lib/types";
-  import { onMount } from 'svelte';
 
-  import CountdownTime from "./CountdownTime.svelte";
   import Equation from "./Equation.svelte";
-  import CountdownBar from "./CountdownBar.svelte";
+  import { CountdownBar, CountdownTime } from "@botlane-feeder/game-utils";
   import Keypad from "./Keypad.svelte";
 
   interface P {
