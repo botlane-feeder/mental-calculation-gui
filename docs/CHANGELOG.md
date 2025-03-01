@@ -11,20 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - TODO : Changer les boutons, de `<div>` en `<button>`
 
-## [0.8.0] - 2025-03-01
+## [0.7.0] - 2025-03-01
 
 ### ADD
 
 - Ajout d'un bouton pour afficher la modal.
-
-
-## [0.7.0] - 2025-02-26
 
 ### UPDATE 
 
 - Mise en place de la librairie game-utils avec les composants
   - `CountdownBar.svelte`
   - `CountdownTime.svelte`
+- Changement de la récupération des informations VERSION, NAME et REGISTRY_NAME
+
+### DELETE
+
+- Suppression du fichier `.env`
 
 ## [0.6.2] - 2025-02-26
 

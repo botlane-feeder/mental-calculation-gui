@@ -1,11 +1,7 @@
 #Makefile
 SHELL := /bin/bash
-# include .env
-# export VERSION
 VERSION=$(shell node -p "require('./package.json').version")
-# export NAME
 NAME=$(shell node -p "require('./package.json').name")
-# export REGISTRY_NAME
 REGISTRY_NAME=$(shell node -p "require('./package.json').registry")
 
 
