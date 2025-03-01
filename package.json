@@ -1,7 +1,7 @@
 {
-	"name": "mental-calculation",
+	"name": "mental-calculation-gui",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.8.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -22,5 +22,7 @@
 	},
 	"dependencies": {
 		"@botlane-feeder/game-utils": "^0.2.0"
-	}
+	},
+	"repository": "https://github.com/botlane-feeder/mental-calculation-gui",
+	"registry": "ghcr.io/botlane-feeder/"
 }

@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - TODO : Changer les boutons, de `<div>` en `<button>`
 
+## [0.8.0] - 2025-03-01
+
+### ADD
+
+- Ajout d'un bouton pour afficher la modal.
+
+
 ## [0.7.0] - 2025-02-26
 
 ### UPDATE 

@@ -1,9 +1,13 @@
 #Makefile
 SHELL := /bin/bash
-include .env
-export VERSION
-export NAME
-export REGISTRY_NAME
+# include .env
+# export VERSION
+VERSION=$(shell node -p "require('./package.json').version")
+# export NAME
+NAME=$(shell node -p "require('./package.json').name")
+# export REGISTRY_NAME
+REGISTRY_NAME=$(shell node -p "require('./package.json').registry")
+
 
 # Cible par défaut
 all: help
@@ -25,3 +29,8 @@ up:
 
 help:
 	@echo "Makefile pour exécuter des commandes pour le projet '${NAME}'"
+
+version:
+	@echo "${NAME} at V${VERSION}"
+	@echo "docker build --no-cache --tag ${REGISTRY_NAME}${NAME}:latest --tag ${REGISTRY_NAME}${NAME}:${VERSION} --file configs/Dockerfile ."
+
