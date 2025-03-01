@@ -22,11 +22,13 @@
     }else{
       clearInterval(modalButton["idInterval"]);
       modalButton["btnDisabled"]=false;
+      modalButton["delay"]=10;
     }
   }
 
   $effect(()=>{
     if(show){
+      modalButton["btnDisabled"]=true;
       modalButton["idInterval"] = setInterval(delayButton, 100);
     }
   });
