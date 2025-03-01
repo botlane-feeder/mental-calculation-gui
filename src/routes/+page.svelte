@@ -24,6 +24,8 @@
   let mentalCalculatioSettings = {
     globalTimer:60
   };
+
+  let showModal = $state(false);
   // Quand l'application est disponible sur navigateur
   onMount(()=>{
     // Récupération du profil local
@@ -58,10 +60,18 @@
       addScore(lastScore);
     }
   });
+
+  $effect(()=>{
+    if(gameTrigger["end"]){
+      showModal = true;
+    }else{
+      showModal = false;
+    }
+  })
 </script>
 
 <div class="container">
-  <Navbar bind:newGameTrigger={gameTrigger["new"]} bind:level={localProfile["level"]} height={"50px"}/>
+  <Navbar bind:newGameTrigger={gameTrigger["new"]} bind:level={localProfile["level"]} height={"50px"} bind:showModal={showModal}/>
   <div class="main">
     <MentalCalculation bind:gameTrigger={gameTrigger} { equationArray } {mentalCalculatioSettings} bind:score={score}/>
   </div>
@@ -82,7 +92,7 @@
   </table>
 {/snippet}
 
-<Modal onclick={()=>{ gameTrigger["new"] = true}} title={`Résolvez autant d'équation possible en ${mentalCalculatioSettings["globalTimer"]} s`} show={gameTrigger["end"]}>
+<Modal onclick={()=>{ gameTrigger["new"] = true}} title={`Résolvez autant d'équation possible en ${mentalCalculatioSettings["globalTimer"]} s`} bind:show={showModal}>
   {#if lastScore > 0}
     <div class="score">Au niveau <span class="bold">{levelString[localProfile["level"]]}</span>, votre score est de {lastScore} !</div>
   {/if}

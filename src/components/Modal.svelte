@@ -9,7 +9,7 @@
     children?: Snippet
   }
 
-  let {onclick, title, show, children}:P = $props();
+  let {onclick, title, show=$bindable(), children}:P = $props();
   let modalButton=$state({
     delay:10,
     idInterval:0,

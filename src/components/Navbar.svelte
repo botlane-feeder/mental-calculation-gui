@@ -9,8 +9,14 @@
    * - moyen
    * - difficile
    */
+  interface P {
+    newGameTrigger:boolean,
+    height:string,
+    level:number,
+    showModal:boolean
+  }
   
-  let {newGameTrigger=$bindable(), height, level=$bindable()}:{newGameTrigger:boolean, height:string, level:number}=$props();
+  let {newGameTrigger=$bindable(), height, level=$bindable(), showModal=$bindable()}:P=$props();
   let closeDropdown:boolean = $state(false)
 
   function onButtonClick(callback:any){
@@ -27,6 +33,7 @@
       <button onclick={()=>{onButtonClick(()=>{level=1})}} disabled={level==1}>Moyen</button>
       <button onclick={()=>{onButtonClick(()=>{level=2})}} disabled={level==2}>Difficile</button>
     </Dropdown>
+    <button onclick={()=>{onButtonClick(()=>{showModal=true})}}>Afficher les scores</button>
     <a href="/about">À propos</a>
     <!-- <Dropdown title={"Jeux seul"} direction={"row"}>
       <button>Sudoku</button>
